@@ -1,15 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { FilterState, PriceRange, SortOption } from '../../types/product.types';
+import { RootState } from '../store';
 
-interface FilterState {
-  searchQuery: string;
-  category: string | null;
-  priceRange: {
-    min: number;
-    max: number;
-  };
-  sortBy: 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc' | 'newest';
-}
-
+// Initial state
 const initialState: FilterState = {
   searchQuery: '',
   category: null,
@@ -20,51 +13,88 @@ const initialState: FilterState = {
   sortBy: 'newest',
 };
 
-/**
- * Filter slice for managing product filtering and sorting state in Redux
- */
+// Create the filter slice
 const filterSlice = createSlice({
-  name: 'filters',
+  name: 'filter',
   initialState,
   reducers: {
-    // Set search query
+    // PUBLIC_INTERFACE
+    /**
+     * Set the search query
+     */
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
     },
     
-    // Set category filter
+    // PUBLIC_INTERFACE
+    /**
+     * Set the selected category
+     */
     setCategory: (state, action: PayloadAction<string | null>) => {
       state.category = action.payload;
     },
     
-    // Set price range
-    setPriceRange: (state, action: PayloadAction<{ min: number; max: number }>) => {
+    // PUBLIC_INTERFACE
+    /**
+     * Set the price range
+     */
+    setPriceRange: (state, action: PayloadAction<PriceRange>) => {
       state.priceRange = action.payload;
     },
     
-    // Set sort order
-    setSortBy: (state, action: PayloadAction<FilterState['sortBy']>) => {
+    // PUBLIC_INTERFACE
+    /**
+     * Set the sort option
+     */
+    setSortBy: (state, action: PayloadAction<SortOption>) => {
       state.sortBy = action.payload;
     },
     
-    // Reset all filters
+    // PUBLIC_INTERFACE
+    /**
+     * Reset all filters to their initial values
+     */
     resetFilters: (state) => {
-      state.searchQuery = '';
-      state.category = null;
-      state.priceRange = {
-        min: 0,
-        max: 1000,
-      };
-      state.sortBy = 'newest';
+      state.searchQuery = initialState.searchQuery;
+      state.category = initialState.category;
+      state.priceRange = initialState.priceRange;
+      state.sortBy = initialState.sortBy;
     },
   },
 });
 
-export const { 
-  setSearchQuery, 
-  setCategory, 
-  setPriceRange, 
-  setSortBy, 
-  resetFilters 
+// Export actions
+export const {
+  setSearchQuery,
+  setCategory,
+  setPriceRange,
+  setSortBy,
+  resetFilters,
 } = filterSlice.actions;
-export const filterReducer = filterSlice.reducer;
+
+// PUBLIC_INTERFACE
+/**
+ * Selector to get the search query
+ */
+export const selectSearchQuery = (state: RootState) => state.filter.searchQuery;
+
+// PUBLIC_INTERFACE
+/**
+ * Selector to get the selected category
+ */
+export const selectCategory = (state: RootState) => state.filter.category;
+
+// PUBLIC_INTERFACE
+/**
+ * Selector to get the price range
+ */
+export const selectPriceRange = (state: RootState) => state.filter.priceRange;
+
+// PUBLIC_INTERFACE
+/**
+ * Selector to get the sort option
+ */
+export const selectSortBy = (state: RootState) => state.filter.sortBy;
+
+// Export reducer
+export default filterSlice.reducer;
