@@ -16,6 +16,33 @@ export const ProductListContainer = styled.div`
     font-size: 16px;
   }
   
+  .product-card-loading {
+    height: 350px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 1.5s infinite ease-in-out;
+    
+    .loading-placeholder {
+      color: #999;
+      font-size: 14px;
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 0.6;
+    }
+  }
+  
   @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;

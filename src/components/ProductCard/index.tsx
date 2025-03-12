@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ProductCardContainer } from './ProductCard.styles';
+import LazyImage from '../common/LazyImage';
 
 // PUBLIC_INTERFACE
 /**
  * ProductCard Component
  * 
  * Displays a single product with image, title, price, and action buttons
+ * Wrapped with React.memo to prevent unnecessary re-renders when props haven't changed
  */
 const ProductCard: React.FC<{
   id: string;
@@ -16,7 +18,7 @@ const ProductCard: React.FC<{
   return (
     <ProductCardContainer>
       <div className="product-image">
-        <img src={image} alt={title} />
+        <LazyImage src={image} alt={title} />
       </div>
       <div className="product-info">
         <h3>{title}</h3>
@@ -27,4 +29,4 @@ const ProductCard: React.FC<{
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);
