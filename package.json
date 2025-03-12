@@ -25,15 +25,31 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "CI=true react-scripts test --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{ts,tsx}",
-    "format": "prettier --write src/**/*.{ts,tsx,css}"
+    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
+    "format": "prettier --write src/**/*.{ts,tsx,css}",
+    "cypress": "cypress open",
+    "cypress:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "prettier"
+    ],
+    "plugins": [
+      "react",
+      "react-hooks",
+      "prettier"
+    ],
+    "rules": {
+      "react/react-in-jsx-scope": "off",
+      "prettier/prettier": "error"
+    }
   },
   "browserslist": {
     "production": [
@@ -55,6 +71,8 @@
     "eslint-config-prettier": "^8.10.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.1",
-    "prettier": "^3.0.1"
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.0.1",
+    "cypress": "^12.17.3"
   }
 }
