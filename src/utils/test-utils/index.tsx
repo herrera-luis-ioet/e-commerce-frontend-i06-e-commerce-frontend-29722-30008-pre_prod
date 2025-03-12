@@ -6,9 +6,7 @@ import { ThemeProvider } from 'styled-components';
 // BrowserRouter is optional as react-router-dom might not be installed
 
 // Import your reducers
-import { productReducer } from 'redux/slices/productSlice';
-import { filterReducer } from 'redux/slices/filterSlice';
-import { cartReducer } from 'redux/slices/cartSlice';
+import { productReducer, filterReducer, cartReducer } from 'redux/slices';
 
 // Import your theme
 import { theme } from 'styles/theme';
